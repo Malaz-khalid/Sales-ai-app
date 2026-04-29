@@ -40,8 +40,8 @@ if file:
 # ---------------- INPUT ----------------
 st.subheader("📥 Single Prediction")
 
-quantity = st.number_input("Quantity", 1, 100, 5)
-discount = st.number_input("Discount", 0.0, 1.0, 0.2)
+quantity = st.number_input("Quantity", min_value=1,value=5)
+discount = st.number_input("Discount", min_value=0.0, max_value=1.0, value=0.2)
 profit = st.number_input("Profit", value=30.0)
 
 category = st.selectbox("Category", ["Furniture", "Office Supplies", "Technology"])
@@ -122,22 +122,7 @@ if st.button("🚀 Predict"):
         st.pyplot(fig2)
 
     # ---------------- WHAT-IF ANALYSIS ----------------
-    st.subheader("🔍 What-if Analysis")
-
-    new_discount = st.slider("Try Different Discount", 0.0, 1.0, discount)
-
-    test_input = input_data.copy()
-    test_input["Discount"] = new_discount
-
-    new_prediction = model.predict(test_input)[0]
-
-    st.write(f"Old Prediction: {prediction:.2f}")
-    st.write(f"New Prediction: {new_prediction:.2f}")
-
-    if new_prediction > prediction:
-        st.success("📈 Sales improved with new discount")
-    else:
-        st.warning("📉 Sales decreased with new discount")
+    
 
     # ---------------- AI EXPLANATION ----------------
     st.subheader("🧠 AI Explanation")
